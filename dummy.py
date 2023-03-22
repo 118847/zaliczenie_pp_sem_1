@@ -13,6 +13,11 @@ for date in dates:
     # Generate a random commit message
     message = "Update " + date + " " + str(random.randint(1, 1000))
 
-    # Run the Git commands to create the commit and push it to GitHub
-    subprocess.call(["git", "commit", "-m", message, "--date", date])
+    # Write the message to a file
+    with open("message.txt", "w") as f:
+        f.write(message)
+
+    # Run the Git commands to add and commit the changes
+    subprocess.call(["git", "add", "."])
+    subprocess.call(["git", "commit", "-F", "message.txt", "--date", date])
     subprocess.call(["git", "push"])
